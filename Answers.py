@@ -1,4 +1,6 @@
 from collections import Counter
+import statistics
+
 
 html_code = """
 <html>
