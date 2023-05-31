@@ -1,6 +1,7 @@
 from collections import Counter
 import statistics
 import psycopg2
+import random
 
 
 
@@ -136,4 +137,56 @@ conn.commit()
 cursor.close()
 conn.close()
 
-# Question 7: 
+# Question 7: write a recursive searching algorithm to search for a number entered by user in a list of numbers.
+def recursive_search(number, lst, start_index=0):
+    if start_index >= len(lst):
+        return False
+
+    if lst[start_index] == number:
+        return True
+
+    return recursive_search(number, lst, start_index + 1)
+
+# Example usage
+numbers = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+search_number = int(input("Enter a number to search: "))
+
+found = recursive_search(search_number, numbers)
+
+if found:
+    print("Number found in the list.")
+else:
+    print("Number not found in the list.")
+
+# Question 8: Write a program that generates random 4 digits number of 0s and 1s and convert the generated number to base 10.
+import random
+
+def generate_random_binary():
+    binary_digits = [str(random.randint(0, 1)) for _ in range(4)]
+    binary_number = "".join(binary_digits)
+    return binary_number
+
+def binary_to_decimal(binary):
+    decimal = int(binary, 2)
+    return decimal
+
+# Generate a random binary number
+random_binary = generate_random_binary()
+print("Random Binary Number:", random_binary)
+
+# Convert the binary number to decimal
+decimal = binary_to_decimal(random_binary)
+print("Decimal Equivalent:", decimal)
+
+# Question 9:    Write a program to sum the first 50 fibonacci sequence.
+def fibonacci_sum(n):
+    fib_sequence = [0, 1]  # Starting Fibonacci sequence
+    for i in range(2, n):
+        fib_sequence.append(fib_sequence[i-1] + fib_sequence[i-2])  # Calculate the next Fibonacci number
+
+    sum_fibonacci = sum(fib_sequence[:n])  # Sum the first n Fibonacci numbers
+    return sum_fibonacci
+
+# Calculate the sum of the first 50 Fibonacci numbers
+sum_first_50 = fibonacci_sum(50)
+print("Sum of the first 50 Fibonacci numbers:", sum_first_50)
