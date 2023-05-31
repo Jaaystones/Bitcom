@@ -1,5 +1,7 @@
 from collections import Counter
 import statistics
+import psycopg2
+
 
 
 html_code = """
@@ -79,21 +81,19 @@ start_index = html_code.find("<td>MONDAY</td>") + len("<td>MONDAY</td>")
 end_index = html_code.find("</table>")
 table_data = html_code[start_index:end_index]
 color_values = table_data.split(", ")
+color_count = Counter(color_values)
 
 # Question 1: Calculate the mean color
-color_count = Counter(color_values)
 total_colors = len(color_values)
 mean_color = max(color_count, key=lambda x: color_count[x] / total_colors)
 print("Mean color of shirts:", mean_color)
 
 # Question 2:  Which color is mostly worn throughout the week?
-color_count = Counter(color_values)
 # Find the color with the highest count
 most_worn_color = max(color_count, key=color_count.get)
 print("Color mostly worn throughout the week:", most_worn_color)
 
 # Question 3:  Which color is the median?
-color_count = Counter(color_values)
 # Sort the colors based on their counts
 sorted_colors = sorted(color_count, key=color_count.get)
 # Find the color in the middle (median)
@@ -101,16 +101,39 @@ median_color = sorted_colors[len(sorted_colors) // 2]
 print("Median color:", median_color)
 
 # Question 4: Find the variance
-color_count = Counter(color_values)
 # Calculate the variance of the color counts
 color_counts = list(color_count.values())
 variance = statistics.variance(color_counts)
 print("Variance of color counts:", variance)
 
 # Question 5:  if a colour is chosen at random, what is the probability that the color is red?
-color_count = Counter(color_values)
 # Calculate the total number of colors
 total_colors = sum(color_count.values())
 # Calculate the probability of choosing the color "red"
 red_probability = color_count.get("RED", 0) / total_colors
 print("Probability of choosing the color red:", red_probability)
+
+# Question 6:Save the colours and their frequencies in postgresql database
+values)
+# Connect to the PostgreSQL database
+conn = psycopg2.connect(
+    host="your_host",
+    database="your_database",
+    user="your_user",
+    password="your_password"
+)
+
+# Create a cursor object to execute SQL queries
+cursor = conn.cursor()
+
+# Iterate over the colors and their frequencies, and insert them into the database
+for color, frequency in color_count.items():
+    query = "INSERT INTO colors (color, frequency) VALUES (%s, %s)"
+    cursor.execute(query, (color, frequency))
+
+# Commit the changes and close the connection
+conn.commit()
+cursor.close()
+conn.close()
+
+# Question 7: 
