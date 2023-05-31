@@ -1,6 +1,6 @@
-from bs4 import BeautifulSoup
+from collections import Counter
 
-html_code = '''
+html_code = """
 <html>
 <head>
 <title>Our Python Class exam</title>
@@ -70,17 +70,32 @@ html_code = '''
 <p>
 </body>
 </html>
-'''
+"""
 
-soup = BeautifulSoup(html_code, 'html.parser')
+# Extract the color values from the HTML code
+start_index = html_code.find("<td>MONDAY</td>") + len("<td>MONDAY</td>")
+end_index = html_code.find("</table>")
+table_data = html_code[start_index:end_index]
+color_values = table_data.split(", ")
 
-table = soup.find('table')
-rows = table.find_all('tr')[1:]  # Skip the table header row
+# Question 1: Calculate the mean color
+color_count = Counter(color_values)
+total_colors = len(color_values)
+mean_color = max(color_count, key=lambda x: color_count[x] / total_colors)
+print("Mean color of shirts:", mean_color)
 
-colors = []
-for row in rows:
-    color_data = row.find('td', recursive=False).text
-    colors.extend(color_data.split(', '))
+# Question 2:  Which color is mostly worn throughout the week?
+color_count = Counter(color_values)
+# Find the color with the highest count
+most_worn_color = max(color_count, key=color_count.get)
+print("Color mostly worn throughout the week:", most_worn_color)
 
-mean_color = max(set(colors), key=colors.count)
-print("The mean color of the shirts
+# Question 3:  Which color is the median?
+color_count = Counter(color_values)
+# Sort the colors based on their counts
+sorted_colors = sorted(color_count, key=color_count.get)
+# Find the color in the middle (median)
+median_color = sorted_colors[len(sorted_colors) // 2]
+print("Median color:", median_color)
+
+
