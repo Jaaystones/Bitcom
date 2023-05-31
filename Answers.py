@@ -107,4 +107,10 @@ color_counts = list(color_count.values())
 variance = statistics.variance(color_counts)
 print("Variance of color counts:", variance)
 
-# Question 5: 
+# Question 5:  if a colour is chosen at random, what is the probability that the color is red?
+color_count = Counter(color_values)
+# Calculate the total number of colors
+total_colors = sum(color_count.values())
+# Calculate the probability of choosing the color "red"
+red_probability = color_count.get("RED", 0) / total_colors
+print("Probability of choosing the color red:", red_probability)
