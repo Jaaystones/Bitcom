@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Store Polling Unit Result</title>
+</head>
+<body>
+    <h1>Store Polling Unit Result</h1>
+
+    <form action="/store_polling_unit_result" method="post">
+        <label for="polling_unit_id">Polling Unit ID:</label>
+        <input type="text" id="polling_unit_id" name="polling_unit_id" required>
+
+        <label for="party_a_votes">Party A Votes:</label>
+        <input type="text" id="party_a_votes" name="party_a_votes" required>
+
+        <label for="party_b_votes">Party B Votes:</label>
+        <input type="text" id="party_b_votes" name="party_b_votes" required>
+
+        <label for="party_c_votes">Party C Votes:</label>
+        <input type="text" id="party_c_votes" name="party_c_votes" required>
+
+        <!-- Add more fields for other parties as needed -->
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
