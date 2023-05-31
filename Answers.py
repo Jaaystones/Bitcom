@@ -98,4 +98,11 @@ sorted_colors = sorted(color_count, key=color_count.get)
 median_color = sorted_colors[len(sorted_colors) // 2]
 print("Median color:", median_color)
 
+# Question 4: Find the variance
+color_count = Counter(color_values)
+# Calculate the variance of the color counts
+color_counts = list(color_count.values())
+variance = statistics.variance(color_counts)
+print("Variance of color counts:", variance)
 
+# Question 5: 
